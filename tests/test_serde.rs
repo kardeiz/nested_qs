@@ -8,7 +8,7 @@ extern crate test;
 
 use test::Bencher;
 
-// The example structs here are from [serde_qs](https://github.com/samscott89/serde_qs).
+// The example structs here are mostly from [serde_qs](https://github.com/samscott89/serde_qs).
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 struct Address {
@@ -23,6 +23,7 @@ struct QueryParams {
     phone: u32,
     address: Address,
     user_ids: Vec<u8>,
+    is_admin: bool,
 }
 
 #[test]
@@ -36,6 +37,7 @@ fn serde_struct() {
             postcode: "12345".to_string(),
         },
         user_ids: vec![1, 2, 3, 4],
+        is_admin: false,
     };
 
     let encoded = qs::to_string(&params).unwrap();
@@ -58,6 +60,7 @@ fn bench_serde_struct(b: &mut Bencher) {
                 postcode: "12345".to_string(),
             },
             user_ids: vec![1, 2, 3, 4],
+            is_admin: false,
         });
 
         let encoded = qs::to_string(&params).unwrap();
