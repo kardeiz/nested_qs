@@ -1,0 +1,18 @@
+[package]
+authors = ["Jacob Brown <kardeiz@gmail.com>"]
+categories = ["encoding", "web-programming"]
+name = "nested_qs"
+description = "Serializing/deserializing nested style querystrings with serde"
+documentation = "https://docs.rs/nested_qs"
+license = "MIT/Apache-2.0"
+repository = "https://github.com/kardeiz/nested_qs"
+version = "0.1.0"
+
+[dependencies]
+error-chain = "0.11.0"
+serde = "1.0.19"
+serde_json = "1.0.5"
+url = "1.6.0"
+
+[dev-dependencies]
+serde_derive = "1.0.19"
