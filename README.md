@@ -11,6 +11,9 @@ Defers pretty much everything except key parsing to `url::form_urlencoded` and `
 as expensive as might be expected (you'll probably need to allocate a few strings anyway if you have any pluses
 or encoded chars in your querystring). Some casual benchmarking indicates it performs well in comparison to `serde_qs`.
 
+Using `serde_json::Value` like this does **not** mean that JSON is used in the process. No JSON strings are involved at
+any point.
+
 Use like:
 
 ```rust
