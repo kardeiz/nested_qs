@@ -1,5 +1,5 @@
 //! This is copied pretty much wholesale from [https://github.com/serde-rs/json/blob/master/src/value/de.rs](https://github.com/serde-rs/json/blob/master/src/value/de.rs).
-//! The only difference is that this serializer is open to deserializing strings to numbers or bool.
+//! The only difference is that this deserializer is open to deserializing strings to numbers or bool.
 
 use std::borrow::Cow;
 use std::vec;
