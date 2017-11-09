@@ -1,12 +1,12 @@
-#![feature(test)]
+// #![feature(test)]
 
 #[macro_use]
 extern crate serde_derive;
 extern crate nested_qs as qs;
 
-extern crate test;
+// extern crate test;
 
-use test::Bencher;
+// use test::Bencher;
 
 // The example structs here are mostly from [serde_qs](https://github.com/samscott89/serde_qs).
 
@@ -48,22 +48,22 @@ fn serde_struct() {
 
 }
 
-#[bench]
-fn bench_serde_struct(b: &mut Bencher) {
-    b.iter(|| {
-        let params = test::black_box(QueryParams {
-            id: 42,
-            name: "Acme".to_string(),
-            phone: 12345,
-            address: Address {
-                city: "Carrot City".to_string(),
-                postcode: "12345".to_string(),
-            },
-            user_ids: vec![1, 2, 3, 4],
-            is_admin: false,
-        });
+// #[bench]
+// fn bench_serde_struct(b: &mut Bencher) {
+//     b.iter(|| {
+//         let params = test::black_box(QueryParams {
+//             id: 42,
+//             name: "Acme".to_string(),
+//             phone: 12345,
+//             address: Address {
+//                 city: "Carrot City".to_string(),
+//                 postcode: "12345".to_string(),
+//             },
+//             user_ids: vec![1, 2, 3, 4],
+//             is_admin: false,
+//         });
 
-        let encoded = qs::to_string(&params).unwrap();
-        let decoded: QueryParams = qs::from_str(&encoded).unwrap();
-    });
-}
+//         let encoded = qs::to_string(&params).unwrap();
+//         let decoded: QueryParams = qs::from_str(&encoded).unwrap();
+//     });
+// }
