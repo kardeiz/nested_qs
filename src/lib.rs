@@ -32,7 +32,7 @@ mod deserializer;
 trait ValueExtensions {
     fn find_or_insert_object<I: Into<String>>(&mut self, key: I) -> err::Result<&mut Self>;
     fn find_or_insert_array(&mut self) -> err::Result<&mut Self>;
-    fn collect_keys<'a>(
+    fn collect_pairs<'a>(
         &'a self,
         pairs: &mut Vec<(String, Cow<'a, str>)>,
         buf: String,
@@ -123,7 +123,7 @@ impl ValueExtensions for Value {
         }
     }
 
-    fn collect_keys<'a>(
+    fn collect_pairs<'a>(
         &'a self,
         pairs: &mut Vec<(String, Cow<'a, str>)>,
         mut buf: String,
@@ -143,7 +143,7 @@ impl ValueExtensions for Value {
             Value::Array(ref arr) => {
                 write!(&mut buf, "[]")?;
                 for node in arr {
-                    node.collect_keys(pairs, buf.clone())?;
+                    node.collect_pairs(pairs, buf.clone())?;
                 }
             }
             Value::Object(ref map) => {
@@ -154,7 +154,7 @@ impl ValueExtensions for Value {
                     } else {
                         write!(&mut buf, "[{}]", k)?;
                     }
-                    node.collect_keys(pairs, buf)?;
+                    node.collect_pairs(pairs, buf)?;
                 }
             }
         }
@@ -192,7 +192,7 @@ pub fn from_reader<R: ::std::io::Read, D: ::serde::de::DeserializeOwned>(
 pub fn to_string<S: ::serde::Serialize>(s: &S) -> err::Result<String> {
     let value = ::serde_json::to_value(s)?;
     let mut pairs = Vec::new();
-    value.collect_keys(&mut pairs, String::new())?;
+    value.collect_pairs(&mut pairs, String::new())?;
     let out = ::url::form_urlencoded::Serializer::new(String::new())
         .extend_pairs(&pairs)
         .finish();
