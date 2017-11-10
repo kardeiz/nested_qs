@@ -6,7 +6,8 @@ description = "Serializing/deserializing nested style querystrings with serde"
 documentation = "https://docs.rs/nested_qs"
 license = "MIT/Apache-2.0"
 repository = "https://github.com/kardeiz/nested_qs"
-version = "0.1.0"
+version = "0.1.1"
+readme = "README.md"
 
 [dependencies]
 error-chain = "0.11.0"
