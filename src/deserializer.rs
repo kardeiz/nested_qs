@@ -482,10 +482,28 @@ trait UnexpectedLocal {
 
 impl UnexpectedLocal for Value {
     fn unexpected(&self) -> Unexpected {
+
+        fn unexpected_number(number: &serde_json::Number) -> Unexpected {
+            if let Some(n) = number.as_f64() {
+                return Unexpected::Float(n);
+            }
+
+            if let Some(n) = number.as_u64() {
+                return Unexpected::Unsigned(n);
+            }
+
+            if let Some(n) = number.as_i64() {
+                return Unexpected::Signed(n);
+            }
+
+            unreachable!()
+        }
+
+
         match *self {
             Value::Null => Unexpected::Unit,
             Value::Bool(b) => Unexpected::Bool(b),
-            Value::Number(ref n) => n.unexpected(),
+            Value::Number(ref n) => unexpected_number(n),
             Value::String(ref s) => Unexpected::Str(s),
             Value::Array(_) => Unexpected::Seq,
             Value::Object(_) => Unexpected::Map,
